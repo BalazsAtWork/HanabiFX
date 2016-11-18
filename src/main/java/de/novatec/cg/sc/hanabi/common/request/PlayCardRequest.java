@@ -15,12 +15,12 @@ public class PlayCardRequest implements Request {
     }
 
     @Override
-    public String toString() {
-        return "PlaycardRequest [card=" + card + "]";
+    public RequestType getRequestType() {
+        return RequestType.PLAY_CARD_REQUEST;
     }
 
     @Override
-    public RequestType getRequestType() {
-        return RequestType.PLAY_CARD_REQUEST;
+    public String toString() {
+        return "PlaycardRequest [card=" + card + "]";
     }
 }

@@ -14,12 +14,12 @@ public class ConnectionRequest implements Request {
     }
 
     @Override
-    public String toString() {
-        return "ConnectionRequest [playerName=" + playerName + "]";
+    public RequestType getRequestType() {
+        return RequestType.CONNECTION_REQUEST;
     }
 
     @Override
-    public RequestType getRequestType() {
-        return RequestType.CONNECTION_REQUEST;
+    public String toString() {
+        return "ConnectionRequest [playerName=" + playerName + "]";
     }
 }

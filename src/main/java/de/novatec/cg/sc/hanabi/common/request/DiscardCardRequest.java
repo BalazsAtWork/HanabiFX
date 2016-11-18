@@ -15,12 +15,12 @@ public class DiscardCardRequest implements Request {
     }
 
     @Override
-    public String toString() {
-        return "DiscardCardRequest [discardedCard=" + discardedCard + "]";
+    public RequestType getRequestType() {
+        return RequestType.DISCARD_REQUEST;
     }
 
     @Override
-    public RequestType getRequestType() {
-        return RequestType.DISCARD_REQUEST;
+    public String toString() {
+        return "DiscardCardRequest [discardedCard=" + discardedCard + "]";
     }
 }

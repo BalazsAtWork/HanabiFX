@@ -23,12 +23,12 @@ public class HintNumberRequest implements Request {
     }
 
     @Override
-    public String toString() {
-        return "HintNumberRequest [targetPlayer=" + targetPlayer + ", number=" + number + ", positive=" + positive + "]";
+    public RequestType getRequestType() {
+        return RequestType.HINT_NUMBER_REQUEST;
     }
 
     @Override
-    public RequestType getRequestType() {
-        return RequestType.HINT_NUMBER_REQUEST;
+    public String toString() {
+        return "HintNumberRequest [targetPlayer=" + targetPlayer + ", number=" + number + ", positive=" + positive + "]";
     }
 }

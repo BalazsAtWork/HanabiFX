@@ -23,12 +23,12 @@ public class HintColorRequest implements Request {
     }
 
     @Override
-    public String toString() {
-        return "HintColorRequest [targetName=" + targetPlayer + ", color=" + color + ", positive=" + positive + "]";
+    public RequestType getRequestType() {
+        return RequestType.HINT_COLOR_REQUEST;
     }
 
     @Override
-    public RequestType getRequestType() {
-        return RequestType.HINT_COLOR_REQUEST;
+    public String toString() {
+        return "HintColorRequest [targetPlayer=" + targetPlayer + ", color=" + color + ", positive=" + positive + "]";
     }
 }
