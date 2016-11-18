@@ -3,6 +3,7 @@ package de.novatec.cg.sc.hanabi.common;
 import com.google.gson.annotations.SerializedName;
 
 public class CardInHand {
+
     @SerializedName("card")
     private Card card;
 

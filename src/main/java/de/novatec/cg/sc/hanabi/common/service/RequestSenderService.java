@@ -24,6 +24,9 @@ public class RequestSenderService {
     @Inject
     private JsonService jsonService;
 
+    @Inject
+    private LoggingService loggingService;
+
     private Basic basicRemote;
 
     public void setMessageSender(Basic basicRemote) {
@@ -64,9 +67,10 @@ public class RequestSenderService {
         sendText(finalRequest);
     }
 
-    private void sendText(String text) {
+    private void sendText(String messageToServer) {
         try {
-            basicRemote.sendText(text);
+            loggingService.logClientMessage("Message to Server: " + messageToServer);
+            basicRemote.sendText(messageToServer);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package de.novatec.cg.sc.hanabi.common.payload.handler;
+package de.novatec.cg.sc.hanabi.common.payload.handler.response;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

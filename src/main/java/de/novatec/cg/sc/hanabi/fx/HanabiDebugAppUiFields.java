@@ -1,5 +1,6 @@
 package de.novatec.cg.sc.hanabi.fx;
 
+import de.novatec.cg.sc.hanabi.client.Client;
 import de.novatec.cg.sc.hanabi.common.enums.Color;
 import de.novatec.cg.sc.hanabi.common.enums.Number;
 import javafx.fxml.FXML;
@@ -68,7 +69,7 @@ public abstract class HanabiDebugAppUiFields {
 
     @FXML
     private void initialize() {
-        //        Client.connectToServer();
+        Client.connectToServer();
         playerNameTf.setText("THYBRIS");
 
         ToggleGroup colorToggleGroup = new ToggleGroup();

@@ -10,16 +10,38 @@ import de.novatec.cg.sc.hanabi.common.enums.Number;
 
 public class GameState {
 
+    @SerializedName("hint_tokens")
     private int hintTokens;
+
+    @SerializedName("hint_tokens_max")
+    private int hintTokensMax;
+
+    @SerializedName("error_tokens")
     private int errorTokens;
 
-    private List<Player> player;
+    @SerializedName("players")
+    private List<Player> players;
 
     @SerializedName("played_cards")
     private HashMap<Color, Number> playedCards;
 
-    @Override
-    public String toString() {
-        return "GameState";
+    public int getHintTokens() {
+        return hintTokens;
+    }
+
+    public int getHintTokensMax() {
+        return hintTokensMax;
+    }
+
+    public int getErrorTokens() {
+        return errorTokens;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public HashMap<Color, Number> getPlayedCards() {
+        return playedCards;
     }
 }

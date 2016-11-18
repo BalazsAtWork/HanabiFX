@@ -2,19 +2,19 @@ package de.novatec.cg.sc.hanabi.common.payload;
 
 import com.google.gson.annotations.SerializedName;
 
+import de.novatec.cg.sc.hanabi.common.GameState;
 import de.novatec.cg.sc.hanabi.common.enums.ResponseType;
 
 public class ResponseMessage {
 
     @SerializedName("res_type")
-    private final ResponseType responseType;
+    private ResponseType responseType;
 
-    private final String payload;
+    @SerializedName("payload")
+    private String payload;
 
-    public ResponseMessage(ResponseType responseType, String payload) {
-        this.responseType = responseType;
-        this.payload = payload;
-    }
+    @SerializedName("game_state")
+    private GameState gameState;
 
     public ResponseType getReponseType() {
         return responseType;
@@ -22,6 +22,10 @@ public class ResponseMessage {
 
     public String getPayload() {
         return payload;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
     @Override

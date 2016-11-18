@@ -1,24 +1,31 @@
 package de.novatec.cg.sc.hanabi.common;
 
+import java.util.HashSet;
+
+import com.google.gson.annotations.SerializedName;
+
+import de.novatec.cg.sc.hanabi.common.enums.Color;
+
 public class CardKnowledge {
 
+    @SerializedName("knowns_color")
     private boolean knowsColor;
+
+    @SerializedName("knowns_number")
     private boolean knowsNumber;
 
-    // EXTENDED FEATURE
-    //    private HashSet<Color> knowsColorNot;
-    //    private HashSet<Number> knowsNumberNot;
+    @SerializedName("knowns_color_not")
+    private HashSet<Color> knowsColorNot;
 
-    public CardKnowledge(boolean knowsColor, boolean knowsNumber) {
-        this.knowsColor = knowsColor;
-        this.knowsNumber = knowsNumber;
-    }
+    @SerializedName("knowns_number_not")
+    private HashSet<Number> knowsNumberNot;
 
-    public boolean isKnowsColor() {
+    public boolean playerKnowsColor() {
         return knowsColor;
     }
 
-    public boolean isKnowsNumber() {
+    public boolean playerKnowsNumber() {
         return knowsNumber;
     }
+
 }

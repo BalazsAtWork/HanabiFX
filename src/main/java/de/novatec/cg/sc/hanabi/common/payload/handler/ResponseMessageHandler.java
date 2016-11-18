@@ -25,9 +25,9 @@ public class ResponseMessageHandler {
     @Inject
     private LoggingService loggingService;
 
-    public void handle(ResponseMessage payloadContainer) {
-        ResponseType responseType = payloadContainer.getReponseType();
-        String payload = payloadContainer.getPayload();
+    public void handle(ResponseMessage responseMessage) {
+        ResponseType responseType = responseMessage.getReponseType();
+        String payload = responseMessage.getPayload();
 
         switch (responseType) {
         case ERROR_RESPONSE:
@@ -39,12 +39,18 @@ public class ResponseMessageHandler {
         case DISCARD_CARD_RESPONSE:
             discardCardResponsePayloadHandler.handle(payload);
             break;
+        case HINT_COLOR_RESPONSE:
+            System.out.println("-HINT_COLOR_RESPONSE->" + payload);
+            break;
+        case HINT_NUMBER_RESPONSE:
+            System.out.println("-HINT_NUMBER_RESPONSE->" + payload);
+            break;
         case PLAY_CARD_RESPONSE:
             playCardResponsePayloadHandler.handle(payload);
             break;
-        default:
+        case GAME_OVER_RESPONSE:
+            System.out.println("-GAME_OVER_RESPONSE->" + payload);
             break;
         }
-        throw new IllegalArgumentException("UNHANDLED PAYLOADTYPE!");
     }
 }
