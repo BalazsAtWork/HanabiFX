@@ -41,5 +41,5 @@
 	<!--TYRUS: WEBSOCKET IMPL-->
 	<dependency org="org.glassfish.tyrus.bundles" name="tyrus-standalone-client" rev="1.13" transitive="false" />
 	
-	<!--dependency org="org.apache.commons" name="commons-lang3" rev="3.5" transitive="false"/-->
+	<dependency org="org.apache.commons" name="commons-lang3" rev="3.5" transitive="false"/>
 </ivy-module>
