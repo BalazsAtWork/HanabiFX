@@ -1,4 +1,4 @@
-package de.novatec.cg.sc.hanabi.fx;
+package de.novatec.cg.sc.hanabi.client.fx;
 
 import de.novatec.cg.sc.hanabi.client.Client;
 import de.novatec.cg.sc.hanabi.common.enums.Color;
