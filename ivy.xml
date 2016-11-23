@@ -26,6 +26,7 @@
 	</info>
 	<!--GUICE: DEPENDENCY INJECTION-->
 	<dependency org="com.google.inject" name="guice" rev="4.1.0" transitive="false"/>
+	<dependency org="aopalliance" name="aopalliance" rev="1.0" transitive="false"/>
 	
 	<!--GUAVA: REQUIRED BY GUICE-->
 	<dependency org="com.google.guava" name="guava" rev="19.0" transitive="false"/>
