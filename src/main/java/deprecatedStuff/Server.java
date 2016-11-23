@@ -7,7 +7,6 @@ import java.net.Socket;
 import com.google.inject.Inject;
 
 import de.novatec.cg.sc.hanabi.GuiceInjector;
-import de.novatec.cg.sc.hanabi.common.configuration.Config;
 import de.novatec.cg.sc.hanabi.common.service.LoggingService;
 
 public class Server {
@@ -27,7 +26,7 @@ public class Server {
     }
 
     private final void startServer() {
-        try (ServerSocket server = new ServerSocket(Config.SERVER_PORT);) {
+        try (ServerSocket server = new ServerSocket(4444)) {
             loggingService.logServerMessage("STARTING UP-->");
 
             while (true) {
