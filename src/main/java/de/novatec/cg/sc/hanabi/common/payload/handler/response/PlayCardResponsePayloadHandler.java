@@ -20,6 +20,6 @@ public class PlayCardResponsePayloadHandler {
 
     public void handle(String json) {
         PlayCardResponse playCardResponse = jsonManager.fromJsonToObject(json, TARGET_TYPE);
-        loggingService.logServerMessage("HANDLE PLAYCARDRESPONSE-->" + playCardResponse);
+        loggingService.logClientMessage("HANDLE PLAYCARDRESPONSE-->" + playCardResponse);
     }
 }

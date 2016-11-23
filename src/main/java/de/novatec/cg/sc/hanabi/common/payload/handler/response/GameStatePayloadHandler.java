@@ -20,6 +20,6 @@ public class GameStatePayloadHandler {
 
     public void handle(String json) {
         GameState gameState = jsonManager.fromJsonToObject(json, TARGET_TYPE);
-        loggingService.logServerMessage("HANDLE GAMESTATE-->" + gameState);
+        loggingService.logClientMessage("HANDLE GAMESTATE-->" + gameState);
     }
 }

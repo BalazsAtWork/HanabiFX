@@ -20,6 +20,6 @@ public class ConnectionResponsePayloadHandler {
 
     public void handle(String json) {
         ConnectionResponse connectionResponse = jsonManager.fromJsonToObject(json, TARGET_TYPE);
-        loggingService.logServerMessage("HANDLE CONNECTIONRESPONSE-->" + connectionResponse);
+        loggingService.logClientMessage("HANDLE CONNECTIONRESPONSE-->" + connectionResponse);
     }
 }

@@ -20,6 +20,6 @@ public class DiscardCardResponsePayloadHandler {
 
     public void handle(String json) {
         DiscardCardResponse discardCardResponse = jsonManager.fromJsonToObject(json, TARGET_TYPE);
-        loggingService.logServerMessage("HANDLE DISCARDCARD RESPONSE-->" + discardCardResponse);
+        loggingService.logClientMessage("HANDLE DISCARDCARD RESPONSE-->" + discardCardResponse);
     }
 }
