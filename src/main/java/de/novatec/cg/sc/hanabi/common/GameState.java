@@ -16,7 +16,7 @@ public class GameState {
     @SerializedName("hint_tokens_max")
     private int hintTokensMax;
 
-    @SerializedName("error_tokens")
+    @SerializedName("err_tokens")
     private int errorTokens;
 
     @SerializedName("players")
@@ -24,6 +24,9 @@ public class GameState {
 
     @SerializedName("played_cards")
     private HashMap<Color, Number> playedCards;
+
+    @SerializedName("deck")
+    private Deck deck;
 
     public int getHintTokens() {
         return hintTokens;
@@ -44,4 +47,15 @@ public class GameState {
     public HashMap<Color, Number> getPlayedCards() {
         return playedCards;
     }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    @Override
+    public String toString() {
+        return "GameState [hintTokens=" + hintTokens + ", hintTokensMax=" + hintTokensMax + ", errorTokens=" + errorTokens + ", players=" + players
+                + ", playedCards=" + playedCards + "]";
+    }
+
 }

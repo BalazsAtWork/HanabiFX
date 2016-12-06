@@ -8,10 +8,13 @@ import de.novatec.cg.sc.hanabi.common.enums.Number;
 public class Card {
 
     @SerializedName("color")
-    private final Color color;
+    private Color color;
 
     @SerializedName("number")
-    private final Number number;
+    private Number number;
+
+    public Card() {
+    }
 
     public Card(Color color, Number number) {
         this.color = color;
@@ -22,8 +25,16 @@ public class Card {
         return color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public Number getNumber() {
         return number;
+    }
+
+    public void setNumber(Number number) {
+        this.number = number;
     }
 
     @Override

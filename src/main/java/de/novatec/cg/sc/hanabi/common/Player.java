@@ -12,6 +12,11 @@ public class Player {
     @SerializedName("cards")
     private List<CardInHand> cards;
 
+    public Player(String name, List<CardInHand> cards) {
+        this.name = name;
+        this.cards = cards;
+    }
+
     public String getName() {
         return name;
     }
@@ -19,4 +24,10 @@ public class Player {
     public List<CardInHand> getCards() {
         return cards;
     }
+
+    @Override
+    public String toString() {
+        return "Player [name=" + name + ", cards=" + cards + "]";
+    }
+
 }

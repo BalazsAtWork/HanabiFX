@@ -5,27 +5,50 @@ import java.util.HashSet;
 import com.google.gson.annotations.SerializedName;
 
 import de.novatec.cg.sc.hanabi.common.enums.Color;
+import de.novatec.cg.sc.hanabi.common.enums.Number;
 
 public class CardKnowledge {
 
-    @SerializedName("knowns_color")
+    @SerializedName("knows_color")
     private boolean knowsColor;
 
-    @SerializedName("knowns_number")
+    @SerializedName("knows_number")
     private boolean knowsNumber;
 
-    @SerializedName("knowns_color_not")
-    private HashSet<Color> knowsColorNot;
+    @SerializedName("knows_color_not")
+    private HashSet<Color> knowsColorNot = new HashSet<>();
 
-    @SerializedName("knowns_number_not")
-    private HashSet<Number> knowsNumberNot;
+    @SerializedName("knows_number_not")
+    private HashSet<Number> knowsNumberNot = new HashSet<>();
 
     public boolean playerKnowsColor() {
         return knowsColor;
     }
 
+    public void setPlayerKnowsColor(boolean knowsColor) {
+        this.knowsColor = knowsColor;
+    }
+
     public boolean playerKnowsNumber() {
         return knowsNumber;
+    }
+
+    public void setPlayerKnowsNumber(boolean knowsNumber) {
+        this.knowsNumber = knowsNumber;
+    }
+
+    public HashSet<Color> getKnowsColorNot() {
+        return knowsColorNot;
+    }
+
+    public HashSet<Number> getKnowsNumberNot() {
+        return knowsNumberNot;
+    }
+
+    @Override
+    public String toString() {
+        return "CardKnowledge [knowsColor=" + knowsColor + ", knowsNumber=" + knowsNumber + ", knowsColorNot=" + knowsColorNot + ", knowsNumberNot="
+                + knowsNumberNot + "]";
     }
 
 }

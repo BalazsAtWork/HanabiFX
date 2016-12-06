@@ -13,6 +13,9 @@ public class ResponseMessage {
     @SerializedName("payload")
     private String payload;
 
+    @SerializedName("next")
+    private String nextPlayerName;
+
     @SerializedName("game_state")
     private GameState gameState;
 
@@ -24,12 +27,17 @@ public class ResponseMessage {
         return payload;
     }
 
+    public String getNextPlayerName() {
+        return nextPlayerName;
+    }
+
     public GameState getGameState() {
         return gameState;
     }
 
     @Override
     public String toString() {
-        return "ResponseMessage [responseType=" + responseType + ", payload=" + payload + "]";
+        return "ResponseMessage [responseType=" + responseType + ", payload=" + payload + ", nextPlayerName=" + nextPlayerName + ", gameState=" + gameState
+                + "]";
     }
 }
