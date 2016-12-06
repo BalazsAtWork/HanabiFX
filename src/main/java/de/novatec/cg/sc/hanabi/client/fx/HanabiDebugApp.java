@@ -29,7 +29,7 @@ public class HanabiDebugApp extends Application {
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HanabiDebugApp.class.getResource("view/Root.fxml"));
+            loader.setLocation(HanabiDebugApp.class.getResource("view/DebugRoot.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
