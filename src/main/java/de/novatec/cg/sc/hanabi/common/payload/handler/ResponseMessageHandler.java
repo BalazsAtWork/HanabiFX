@@ -44,6 +44,9 @@ public class ResponseMessageHandler {
         case CONNECTION_RESPONSE:
             connectionResponsePayloadHandler.handle(payload);
             break;
+        case GAME_START_RESPONSE:
+            renderGameState = true;
+            break;
         case DISCARD_CARD_RESPONSE:
             discardCardResponsePayloadHandler.handle(payload);
             renderGameState = true;

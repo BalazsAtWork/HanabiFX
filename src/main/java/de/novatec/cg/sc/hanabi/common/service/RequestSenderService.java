@@ -13,6 +13,7 @@ import de.novatec.cg.sc.hanabi.common.enums.Number;
 import de.novatec.cg.sc.hanabi.common.payload.RequestMessage;
 import de.novatec.cg.sc.hanabi.common.request.ConnectionRequest;
 import de.novatec.cg.sc.hanabi.common.request.DiscardCardRequest;
+import de.novatec.cg.sc.hanabi.common.request.GameStartRequest;
 import de.novatec.cg.sc.hanabi.common.request.HintColorRequest;
 import de.novatec.cg.sc.hanabi.common.request.HintNumberRequest;
 import de.novatec.cg.sc.hanabi.common.request.PlayCardRequest;
@@ -40,6 +41,10 @@ public class RequestSenderService {
 
     public void sendConnectionRequest(String playerName) {
         sendRequest(new ConnectionRequest(playerName));
+    }
+
+    public void sendGameStartRequest() {
+        sendRequest(new GameStartRequest());
     }
 
     public void sendDiscardCardRequest(Card cardToDiscard) {
