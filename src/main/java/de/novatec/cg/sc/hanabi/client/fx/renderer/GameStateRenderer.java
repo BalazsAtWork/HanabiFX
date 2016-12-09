@@ -1,6 +1,7 @@
 package de.novatec.cg.sc.hanabi.client.fx.renderer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import de.novatec.cg.sc.hanabi.common.enums.Number;
 import de.novatec.cg.sc.hanabi.common.service.RequestSenderService;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
@@ -60,8 +62,6 @@ public class GameStateRenderer {
     private TextField notColor = new TextField();
     private TextField notNumber = new TextField();
 
-    private GameState currentGameState;
-
     public void setMainAnchorPanel(AnchorPane mainAnchorPane) {
         this.mainAnchorPane = mainAnchorPane;
         mainVbox.setLayoutX(20);
@@ -81,37 +81,17 @@ public class GameStateRenderer {
     }
 
     public void renderGameState(GameState gameState, String nextPlayerName) {
-        this.currentGameState = gameState;
-
-        List<Player> players = createDummyPlayers("Timbo", "Winner", "WhyIAmHere?", "HelpMe!");
-        HashMap<de.novatec.cg.sc.hanabi.common.enums.Color, Number> playedCards = new HashMap<>();
-
-        int hintTokens = 99;
-        int errorTokens = 100;
-        Deck deck = null;
-        if (currentGameState != null) {
-            playedCards = currentGameState.getPlayedCards();
-            hintTokens = currentGameState.getHintTokens();
-            errorTokens = currentGameState.getErrorTokens();
-            players = currentGameState.getPlayers();
-            deck = currentGameState.getDeck();
+        if (gameState != null) {
+            renderPlayedCards(gameState.getPlayedCards());
+            renderGameInfo(gameState.getHintTokens(), gameState.getErrorTokens(), gameState.getDeck());
+            renderPlayerWithCards(nextPlayerName, gameState.getPlayers());
         }
-
-        renderPlayedCards(playedCards);
-        renderGameInfo(hintTokens, errorTokens, deck);
-        renderPlayerWithCards(nextPlayerName, players);
     }
 
     private void renderPlayedCards(HashMap<de.novatec.cg.sc.hanabi.common.enums.Color, Number> playedCards) {
         this.playedCardsVbox.getChildren().clear();
 
-        TitledPane playedCardsTitledPane = new TitledPane();
-        playedCardsTitledPane.setText("Played cards");
-        playedCardsTitledPane.setCollapsible(false);
-
-        HBox hbox = new HBox(CARD_GAP);
-        playedCardsTitledPane.setContent(hbox);
-
+        List<Node> children = new ArrayList<>();
         for (de.novatec.cg.sc.hanabi.common.enums.Color color : de.novatec.cg.sc.hanabi.common.enums.Color.values()) {
             Canvas cardCanvas = createColoredCanvas(CARD_HEIGHT, CARD_WIDTH, color.getFxColor(), true, null);
 
@@ -124,29 +104,22 @@ public class GameStateRenderer {
                     gc.fillText(number.displayValue(), 7, 35);
                 }
             }
-            hbox.getChildren().add(cardCanvas);
+            children.add(cardCanvas);
         }
+
+        TitledPane playedCardsTitledPane = createTitledPaneWithHBox("Played cards", CARD_GAP, children);
         playedCardsVbox.getChildren().add(playedCardsTitledPane);
     }
 
     private void renderGameInfo(int hintTokens, int errorTokens, Deck deck) {
         this.gameInfoVbox.getChildren().clear();
 
-        HBox hbox = new HBox(10.0);
-
-        TitledPane gameInfoTitledPane = new TitledPane();
-        gameInfoTitledPane.setText("Game info");
-        gameInfoTitledPane.setCollapsible(false);
-
         VBox vbox = new VBox();
         vbox.getChildren().add(new Label("Hint tokens: " + hintTokens));
         vbox.getChildren().add(new Label("Error tokens: " + errorTokens));
         vbox.getChildren().add(new Label("Cards in deck: " + deck.getCards().size()));
 
-        hbox.getChildren().add(vbox);
-
-        gameInfoTitledPane.setContent(hbox);
-
+        TitledPane gameInfoTitledPane = createTitledPaneWithHBox("Game info", 10, Arrays.asList(vbox));
         gameInfoVbox.getChildren().add(gameInfoTitledPane);
     }
 
@@ -161,29 +134,22 @@ public class GameStateRenderer {
             boolean anotherPlayerToRender = !player.getName().equals(currentPlayerName);
             boolean playerIsTheNextOne = player.getName().equals(nextPlayerName);
 
-            TitledPane playerPane = new TitledPane();
-            playerPane.setText(player.getName());
-            playerPane.setCollapsible(false);
-
-            if (playerIsTheNextOne) {
-                playerPane.setStyle(STYLE_FOR_CURRENT_PLAYER);
-            }
-
-            VBox vbox = new VBox(10.0);
-
             HBox cardHbox = new HBox(CARD_GAP);
             HBox negativeHintHbox = new HBox(CARD_GAP);
 
-            vbox.getChildren().add(cardHbox);
-            vbox.getChildren().add(negativeHintHbox);
+            List<Node> children = new ArrayList<>();
+            children.add(cardHbox);
+            children.add(negativeHintHbox);
 
             if (!anotherPlayerToRender) {
-                vbox.getChildren().add(notColor);
-                vbox.getChildren().add(notNumber);
+                children.add(notColor);
+                children.add(notNumber);
             }
 
-            playerPane.setContent(vbox);
-
+            TitledPane playerPane = createTitledPaneWithVBox(player.getName(), 10, children);
+            if (playerIsTheNextOne) {
+                playerPane.setStyle(STYLE_FOR_CURRENT_PLAYER);
+            }
             playersVbox.getChildren().add(playerPane);
 
             List<CardInHand> cards = player.getCards();
@@ -334,6 +300,26 @@ public class GameStateRenderer {
             }
         }
         return null;
+    }
+
+    private TitledPane createTitledPaneWithHBox(String headerText, int horizontalSpacing, List<Node> children) {
+        HBox hbox = new HBox(horizontalSpacing);
+        hbox.getChildren().addAll(children);
+        return createTitledPane(headerText, hbox);
+    }
+
+    private TitledPane createTitledPaneWithVBox(String headerText, int verticalSpacing, List<Node> children) {
+        VBox vbox = new VBox(verticalSpacing);
+        vbox.getChildren().addAll(children);
+        return createTitledPane(headerText, vbox);
+    }
+
+    private TitledPane createTitledPane(String headerText, Node content) {
+        TitledPane titledPane = new TitledPane();
+        titledPane.setText(headerText);
+        titledPane.setCollapsible(false);
+        titledPane.setContent(content);
+        return titledPane;
     }
 
     private List<Player> createDummyPlayers(String... otherPlayerNames) {
