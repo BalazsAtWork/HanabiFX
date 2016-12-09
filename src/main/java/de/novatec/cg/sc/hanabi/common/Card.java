@@ -7,6 +7,9 @@ import de.novatec.cg.sc.hanabi.common.enums.Number;
 
 public class Card {
 
+    @SerializedName("id")
+    private int id;
+
     @SerializedName("color")
     private Color color;
 
@@ -19,6 +22,10 @@ public class Card {
     public Card(Color color, Number number) {
         this.color = color;
         this.number = number;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Color getColor() {
