@@ -18,7 +18,6 @@
       <Label layoutX="22.0" layoutY="78.0" text="CardNumber" />
       <Button fx:id="hintNumberRequestBtn" layoutX="14.0" layoutY="226.0" mnemonicParsing="false" onAction="#hintNumberRequestAction" prefWidth="136.0" text="HintNumberRequest" />
       <Button fx:id="playCardRequestBtn" layoutX="14.0" layoutY="256.0" mnemonicParsing="false" onAction="#playCardRequestAction" prefWidth="136.0" text="PlayCardRequest" />
-      <CheckBox fx:id="positiveCb" layoutX="103.0" layoutY="103.0" mnemonicParsing="false" text="Positive" />
       <RadioButton fx:id="blueRb" layoutX="103.0" layoutY="48.0" mnemonicParsing="false" text="BLUE" />
       <RadioButton fx:id="greenRb" layoutX="160.0" layoutY="48.0" mnemonicParsing="false" text="GREEN" />
       <RadioButton fx:id="redRb" layoutX="225.0" layoutY="48.0" mnemonicParsing="false" text="RED" />

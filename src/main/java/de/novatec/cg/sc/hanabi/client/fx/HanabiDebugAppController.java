@@ -28,12 +28,12 @@ public class HanabiDebugAppController extends HanabiDebugAppUiFields {
 
     @FXML
     private void hintColorRequestAction() {
-        requestSenderService.sendHintColorRequest(getPlayerName(), getSelectedColor(), isPositiveCheckboxSelected());
+        requestSenderService.sendHintColorRequest(getPlayerName(), getSelectedColor());
     }
 
     @FXML
     private void hintNumberRequestAction() {
-        requestSenderService.sendHintNumberRequest(getPlayerName(), getSelectedNumber(), isPositiveCheckboxSelected());
+        requestSenderService.sendHintNumberRequest(getPlayerName(), getSelectedNumber());
     }
 
     @FXML

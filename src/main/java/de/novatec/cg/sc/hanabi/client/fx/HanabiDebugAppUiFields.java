@@ -5,7 +5,6 @@ import de.novatec.cg.sc.hanabi.common.enums.Color;
 import de.novatec.cg.sc.hanabi.common.enums.Number;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -14,9 +13,6 @@ public abstract class HanabiDebugAppUiFields {
 
     @FXML
     private TextField playerNameTf;
-
-    @FXML
-    private CheckBox positiveCb;
 
     @FXML
     private Button connectionRequestBtn;
@@ -112,9 +108,5 @@ public abstract class HanabiDebugAppUiFields {
 
     public String getPlayerName() {
         return playerNameTf.getText();
-    }
-
-    public boolean isPositiveCheckboxSelected() {
-        return positiveCb.isSelected();
     }
 }
