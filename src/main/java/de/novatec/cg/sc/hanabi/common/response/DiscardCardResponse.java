@@ -1,6 +1,6 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
-public class DiscardCardResponse {
+public class DiscardCardResponse extends GameStateResponse {
 
     private String name;
 

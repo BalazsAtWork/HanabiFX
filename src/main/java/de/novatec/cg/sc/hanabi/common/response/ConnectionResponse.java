@@ -1,6 +1,6 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
-public class ConnectionResponse {
+public class ConnectionResponse implements Response {
 
     private String name;
 

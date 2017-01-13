@@ -5,75 +5,62 @@ import com.google.inject.Singleton;
 
 import de.novatec.cg.sc.hanabi.client.fx.renderer.GameStateRenderer;
 import de.novatec.cg.sc.hanabi.common.GameState;
-import de.novatec.cg.sc.hanabi.common.enums.ResponseType;
-import de.novatec.cg.sc.hanabi.common.payload.ResponseMessage;
-import de.novatec.cg.sc.hanabi.common.payload.handler.response.ConnectionResponsePayloadHandler;
-import de.novatec.cg.sc.hanabi.common.payload.handler.response.DiscardCardResponsePayloadHandler;
-import de.novatec.cg.sc.hanabi.common.payload.handler.response.PlayCardResponsePayloadHandler;
-import de.novatec.cg.sc.hanabi.common.service.LoggingService;
+import de.novatec.cg.sc.hanabi.common.payload.handler.response.ConnectionResponseHandler;
+import de.novatec.cg.sc.hanabi.common.payload.handler.response.DiscardCardResponseHandler;
+import de.novatec.cg.sc.hanabi.common.payload.handler.response.ErrorResponseHandler;
+import de.novatec.cg.sc.hanabi.common.payload.handler.response.GameOverResponseHandler;
+import de.novatec.cg.sc.hanabi.common.payload.handler.response.PlayCardResponseHandler;
+import de.novatec.cg.sc.hanabi.common.response.ConnectionResponse;
+import de.novatec.cg.sc.hanabi.common.response.ErrorResponse;
+import de.novatec.cg.sc.hanabi.common.response.GameOverResponse;
+import de.novatec.cg.sc.hanabi.common.response.GameStateResponse;
+import de.novatec.cg.sc.hanabi.common.response.Response;
 import javafx.application.Platform;
 
 @Singleton
 public class ResponseMessageHandler {
 
     @Inject
-    private ConnectionResponsePayloadHandler connectionResponsePayloadHandler;
+    private ConnectionResponseHandler connectionResponseHandler;
 
     @Inject
-    private DiscardCardResponsePayloadHandler discardCardResponsePayloadHandler;
+    private DiscardCardResponseHandler discardcardresponsepayloadhandler;
 
     @Inject
-    private PlayCardResponsePayloadHandler playCardResponsePayloadHandler;
+    private PlayCardResponseHandler playCardResponsePayloadHandler;
+
+    @Inject
+    private ErrorResponseHandler errorResponsePayloadHandler;
+
+    @Inject
+    private GameOverResponseHandler gameOverResponsePayloadHandler;
 
     @Inject
     private GameStateRenderer gameStateRenderer;
 
-    @Inject
-    private LoggingService loggingService;
+    public void handle(Response response) {
 
-    public void handle(ResponseMessage responseMessage) {
-        ResponseType responseType = responseMessage.getReponseType();
-        String payload = responseMessage.getPayload();
-
-        boolean renderGameState = false;
-
-        switch (responseType) {
-        case ERROR_RESPONSE:
-            loggingService.logClientMessage("ERROR OCCURED: " + payload);
-            break;
-        case CONNECTION_RESPONSE:
-            connectionResponsePayloadHandler.handle(payload);
-            break;
-        case GAME_START_RESPONSE:
-            renderGameState = true;
-            break;
-        case DISCARD_CARD_RESPONSE:
-            discardCardResponsePayloadHandler.handle(payload);
-            renderGameState = true;
-            break;
-        case HINT_COLOR_RESPONSE:
-            System.out.println("-HINT_COLOR_RESPONSE->" + payload);
-            renderGameState = true;
-            break;
-        case HINT_NUMBER_RESPONSE:
-            System.out.println("-HINT_NUMBER_RESPONSE->" + payload);
-            renderGameState = true;
-            break;
-        case PLAY_CARD_RESPONSE:
-            playCardResponsePayloadHandler.handle(payload);
-            renderGameState = true;
-            break;
-        case GAME_OVER_RESPONSE:
-            System.out.println("-GAME_OVER_RESPONSE->" + payload);
-            break;
+        if (response instanceof ErrorResponse) {
+            errorResponsePayloadHandler.handle((ErrorResponse) response);
+        } else if (response instanceof ConnectionResponse) {
+            connectionResponseHandler.handle((ConnectionResponse) response);
+            //            renderGameState(response);
+        } else if (response instanceof GameStateResponse) {
+            renderGameState((GameStateResponse) response);
+        } else if (response instanceof GameOverResponse) {
+            gameOverResponsePayloadHandler.handle((GameOverResponse) response);
+            //            renderGameState(response);
         }
+    }
 
-        if (renderGameState) {
-            Platform.runLater(() -> {
-                String nextPlayerName = responseMessage.getNextPlayerName();
-                GameState gameState = responseMessage.getGameState();
-                gameStateRenderer.renderGameState(gameState, nextPlayerName);
-            });
-        }
+    private void renderGameState(GameStateResponse gameStateResponse) {
+        Platform.runLater(() -> {
+            String nextPlayerName = gameStateResponse.getNextPlayerName();
+            GameState gameState = gameStateResponse.getGameState();
+            if (gameState == null) {
+                gameState = new GameState();
+            }
+            gameStateRenderer.renderGameState(gameState, nextPlayerName);
+        });
     }
 }

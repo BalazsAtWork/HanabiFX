@@ -115,9 +115,12 @@ public class GameStateRenderer {
         this.gameInfoVbox.getChildren().clear();
 
         VBox vbox = new VBox();
-        vbox.getChildren().add(new Label("Hint tokens: " + hintTokens));
-        vbox.getChildren().add(new Label("Error tokens: " + errorTokens));
-        vbox.getChildren().add(new Label("Cards in deck: " + deck.getCards().size()));
+
+        if (deck != null) {
+            vbox.getChildren().add(new Label("Hint tokens: " + hintTokens));
+            vbox.getChildren().add(new Label("Error tokens: " + errorTokens));
+            vbox.getChildren().add(new Label("Cards in deck: " + deck.getCards().size()));
+        }
 
         TitledPane gameInfoTitledPane = createTitledPaneWithHBox("Game info", 10, Arrays.asList(vbox));
         gameInfoVbox.getChildren().add(gameInfoTitledPane);
@@ -125,6 +128,10 @@ public class GameStateRenderer {
 
     private void renderPlayerWithCards(String nextPlayerName, List<Player> players) {
         this.playersVbox.getChildren().clear();
+
+        if (nextPlayerName == null) {
+            return;
+        }
 
         boolean amITheNextOne = currentPlayerName.equals(nextPlayerName);
 
@@ -152,54 +159,63 @@ public class GameStateRenderer {
             }
             playersVbox.getChildren().add(playerPane);
 
-            List<CardInHand> cards = player.getCards();
-            for (CardInHand cardInHand : cards) {
-                Card card = cardInHand.getCard();
-                CardKnowledge knowledge = cardInHand.getCardKnowledge();
-
-                Color canvasColor = Color.BLACK;
-                Color numberColor = Color.WHITE;
-                if (anotherPlayerToRender || knowledge.playerKnowsColor()) {
-                    canvasColor = card.getColor().getFxColor();
-                    numberColor = card.getColor().getFxNumberColor();
-                }
-
-                EventHandler<? super MouseEvent> mouseClickedHandler = determineMouseClickedHandler(amITheNextOne, player, anotherPlayerToRender, card,
-                        knowledge);
-                Canvas cardCanvas = createColoredCanvas(CARD_HEIGHT, CARD_WIDTH, canvasColor, true, mouseClickedHandler);
-
-                GraphicsContext gc = cardCanvas.getGraphicsContext2D();
-
-                if (anotherPlayerToRender || knowledge.playerKnowsNumber()) {
-                    gc.setFont(new Font(30.0));
-                    gc.setFill(numberColor);
-                    gc.fillText(card.getNumber().displayValue(), 7, 35);
-                }
-                cardHbox.getChildren().add(cardCanvas);
-            }
+            renderPlayerCards(amITheNextOne, player, anotherPlayerToRender, cardHbox, player.getCards());
 
             if (amITheNextOne && anotherPlayerToRender) {
-                for (de.novatec.cg.sc.hanabi.common.enums.Color color : de.novatec.cg.sc.hanabi.common.enums.Color.values()) {
-                    EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> {
-                        requestSenderService.sendHintColorRequest(player.getName(), color, false);
-                    };
-                    negativeHintHbox.getChildren().add(createColoredCanvas(10, 10, color.getFxColor(), true, mouseClickedHandler));
-                }
-
-                for (Number number : Number.values()) {
-                    EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> {
-                        requestSenderService.sendHintNumberRequest(player.getName(), number, false);
-                    };
-                    Canvas numberCanvas = createColoredCanvas(10, 10, Color.BLACK, false, mouseClickedHandler);
-                    GraphicsContext gc = numberCanvas.getGraphicsContext2D();
-
-                    gc.setFont(new Font(10.0));
-                    gc.setFill(Color.WHITE);
-                    gc.fillText(number.displayValue(), 3, 9);
-
-                    negativeHintHbox.getChildren().add(numberCanvas);
-                }
+                renderNegativeColorHints(player, negativeHintHbox);
+                renderNegativeNumberHints(player, negativeHintHbox);
             }
+        }
+    }
+
+    private void renderPlayerCards(boolean amITheNextOne, Player player, boolean anotherPlayerToRender, HBox cardHbox, List<CardInHand> cards) {
+        for (CardInHand cardInHand : cards) {
+            Card card = cardInHand.getCard();
+            CardKnowledge knowledge = cardInHand.getCardKnowledge();
+
+            Color canvasColor = Color.BLACK;
+            Color numberColor = Color.WHITE;
+            if (anotherPlayerToRender || knowledge.playerKnowsColor()) {
+                canvasColor = card.getColor().getFxColor();
+                numberColor = card.getColor().getFxNumberColor();
+            }
+
+            EventHandler<? super MouseEvent> mouseClickedHandler = determineMouseClickedHandler(amITheNextOne, player, anotherPlayerToRender, card, knowledge);
+            Canvas cardCanvas = createColoredCanvas(CARD_HEIGHT, CARD_WIDTH, canvasColor, true, mouseClickedHandler);
+
+            GraphicsContext gc = cardCanvas.getGraphicsContext2D();
+
+            if (anotherPlayerToRender || knowledge.playerKnowsNumber()) {
+                gc.setFont(new Font(30.0));
+                gc.setFill(numberColor);
+                gc.fillText(card.getNumber().displayValue(), 7, 35);
+            }
+            cardHbox.getChildren().add(cardCanvas);
+        }
+    }
+
+    private void renderNegativeColorHints(Player player, HBox negativeHintHbox) {
+        for (de.novatec.cg.sc.hanabi.common.enums.Color color : de.novatec.cg.sc.hanabi.common.enums.Color.values()) {
+            EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> {
+                requestSenderService.sendHintColorRequest(player.getName(), color);
+            };
+            negativeHintHbox.getChildren().add(createColoredCanvas(10, 10, color.getFxColor(), true, mouseClickedHandler));
+        }
+    }
+
+    private void renderNegativeNumberHints(Player player, HBox negativeHintHbox) {
+        for (Number number : Number.values()) {
+            EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> {
+                requestSenderService.sendHintNumberRequest(player.getName(), number);
+            };
+            Canvas numberCanvas = createColoredCanvas(10, 10, Color.BLACK, false, mouseClickedHandler);
+            GraphicsContext gc = numberCanvas.getGraphicsContext2D();
+
+            gc.setFont(new Font(10.0));
+            gc.setFill(Color.WHITE);
+            gc.fillText(number.displayValue(), 3, 9);
+
+            negativeHintHbox.getChildren().add(numberCanvas);
         }
     }
 
@@ -256,9 +272,9 @@ public class GameStateRenderer {
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == colorHint) {
-                        requestSenderService.sendHintColorRequest(player.getName(), card.getColor(), true);
+                        requestSenderService.sendHintColorRequest(player.getName(), card.getColor());
                     } else if (result.get() == numberHint) {
-                        requestSenderService.sendHintNumberRequest(player.getName(), card.getNumber(), true);
+                        requestSenderService.sendHintNumberRequest(player.getName(), card.getNumber());
                     }
                 };
                 return anotherPlayerClickHandler;

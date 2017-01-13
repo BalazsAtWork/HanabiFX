@@ -1,6 +1,6 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
-public class GameOverResponse {
+public class GameOverResponse implements Response {
 
     private int score;
 

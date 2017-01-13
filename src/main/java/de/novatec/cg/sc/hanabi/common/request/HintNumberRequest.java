@@ -13,13 +13,9 @@ public class HintNumberRequest implements Request {
     @SerializedName("number")
     private final Number number;
 
-    @SerializedName("positive")
-    private final boolean positive;
-
-    public HintNumberRequest(String targetPlayer, Number number, boolean positive) {
+    public HintNumberRequest(String targetPlayer, Number number) {
         this.targetPlayer = targetPlayer;
         this.number = number;
-        this.positive = positive;
     }
 
     @Override
@@ -29,6 +25,6 @@ public class HintNumberRequest implements Request {
 
     @Override
     public String toString() {
-        return "HintNumberRequest [targetPlayer=" + targetPlayer + ", number=" + number + ", positive=" + positive + "]";
+        return "HintNumberRequest [targetPlayer=" + targetPlayer + ", number=" + number + "]";
     }
 }

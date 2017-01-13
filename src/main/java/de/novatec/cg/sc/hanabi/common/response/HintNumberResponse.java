@@ -1,5 +1,5 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
-public class HintNumberResponse {
+public class HintNumberResponse extends GameStateResponse {
 
 }

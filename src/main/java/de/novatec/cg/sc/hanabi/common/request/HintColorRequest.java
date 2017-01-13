@@ -13,13 +13,9 @@ public class HintColorRequest implements Request {
     @SerializedName("color")
     private final Color color;
 
-    @SerializedName("positive")
-    private final boolean positive;
-
-    public HintColorRequest(String targetPlayer, Color color, boolean positive) {
+    public HintColorRequest(String targetPlayer, Color color) {
         this.targetPlayer = targetPlayer;
         this.color = color;
-        this.positive = positive;
     }
 
     @Override
@@ -29,6 +25,6 @@ public class HintColorRequest implements Request {
 
     @Override
     public String toString() {
-        return "HintColorRequest [targetPlayer=" + targetPlayer + ", color=" + color + ", positive=" + positive + "]";
+        return "HintColorRequest [targetPlayer=" + targetPlayer + ", color=" + color + "]";
     }
 }

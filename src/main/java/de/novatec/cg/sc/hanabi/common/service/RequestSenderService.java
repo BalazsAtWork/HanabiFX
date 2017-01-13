@@ -10,7 +10,6 @@ import com.google.inject.Singleton;
 import de.novatec.cg.sc.hanabi.common.Card;
 import de.novatec.cg.sc.hanabi.common.enums.Color;
 import de.novatec.cg.sc.hanabi.common.enums.Number;
-import de.novatec.cg.sc.hanabi.common.payload.RequestMessage;
 import de.novatec.cg.sc.hanabi.common.request.ConnectionRequest;
 import de.novatec.cg.sc.hanabi.common.request.DiscardCardRequest;
 import de.novatec.cg.sc.hanabi.common.request.GameStartRequest;
@@ -51,12 +50,12 @@ public class RequestSenderService {
         sendRequest(new DiscardCardRequest(cardToDiscard));
     }
 
-    public void sendHintColorRequest(String targetPlayer, Color color, boolean positive) {
-        sendRequest(new HintColorRequest(targetPlayer, color, positive));
+    public void sendHintColorRequest(String targetPlayer, Color color) {
+        sendRequest(new HintColorRequest(targetPlayer, color));
     }
 
-    public void sendHintNumberRequest(String targetPlayer, Number number, boolean positive) {
-        sendRequest(new HintNumberRequest(targetPlayer, number, positive));
+    public void sendHintNumberRequest(String targetPlayer, Number number) {
+        sendRequest(new HintNumberRequest(targetPlayer, number));
     }
 
     public void sendPlayCardRequest(Card card) {
@@ -64,10 +63,7 @@ public class RequestSenderService {
     }
 
     private void sendRequest(Request request) {
-        String requestJson = jsonService.fromObjectToJson(request);
-
-        RequestMessage requestMessage = new RequestMessage(request.getRequestType(), requestJson);
-        String finalRequest = jsonService.fromObjectToJson(requestMessage);
+        String finalRequest = jsonService.fromObjectToJson(request, Request.class);
 
         sendText(finalRequest);
     }

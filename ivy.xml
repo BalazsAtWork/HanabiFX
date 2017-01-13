@@ -36,6 +36,7 @@
 	
 	<!--GSON: JSON PARSER-->
 	<dependency org="com.google.code.gson" name="gson" rev="2.8.0" transitive="false"/>
+	<dependency org="org.danilopianini" name="gson-extras" rev="0.2.1" transitive="false"/>
 	
 	<!--dependency org="javax.websocket" name="javax.websocket-api" rev="1.1" transitive="false"/-->
 	
