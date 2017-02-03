@@ -26,7 +26,17 @@ public class GameState {
     private HashMap<Color, Number> playedCards;
 
     @SerializedName("deck")
-    private Deck deck;
+    private List<Card> deck;
+
+    @SerializedName("discarded_cards")
+    private List<Card> discardedCards;
+
+    @SerializedName("next_player")
+    private String nextPlayer;
+
+    //OPTIONAL?!?!?
+    @SerializedName("turns_left")
+    private Integer turnsLeft;
 
     public int getHintTokens() {
         return hintTokens;
@@ -48,8 +58,12 @@ public class GameState {
         return playedCards;
     }
 
-    public Deck getDeck() {
+    public List<Card> getDeck() {
         return deck;
+    }
+
+    public String getNextPlayer() {
+        return nextPlayer;
     }
 
     @Override

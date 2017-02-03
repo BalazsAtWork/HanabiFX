@@ -27,9 +27,10 @@ public class ConnectionResponseHandler {
 
     public void handle(ConnectionResponse connectionResponse) {
         loggingService.logClientMessage("HANDLE CONNECTIONRESPONSE-->" + connectionResponse);
-        gameStateRenderer.setCurrentPlayerName(connectionResponse.getName());
 
-        connectedPlayerNames.add(connectionResponse.getName());
+        String currentPlayerName = connectionResponse.getNames().get(connectionResponse.getNames().size() - 1);
+        gameStateRenderer.setCurrentPlayerName(currentPlayerName);
+        connectedPlayerNames.add(currentPlayerName);
 
         if (connectedPlayerNames.size() == 2) {
             requestSenderService.sendGameStartRequest();

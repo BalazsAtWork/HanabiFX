@@ -35,7 +35,7 @@ public class JsonService {
             .registerSubtype(ConnectionRequest.class, RequestType.CONNECTION_REQUEST.name())
             .registerSubtype(GameStartRequest.class, RequestType.GAME_START_REQUEST.name())
             .registerSubtype(PlayCardRequest.class, RequestType.PLAY_CARD_REQUEST.name())
-            .registerSubtype(DiscardCardRequest.class, RequestType.DISCARD_REQUEST.name())
+            .registerSubtype(DiscardCardRequest.class, RequestType.DISCARD_CARD_REQUEST.name())
             .registerSubtype(HintColorRequest.class, RequestType.HINT_COLOR_REQUEST.name())
             .registerSubtype(HintNumberRequest.class, RequestType.HINT_NUMBER_REQUEST.name());
 

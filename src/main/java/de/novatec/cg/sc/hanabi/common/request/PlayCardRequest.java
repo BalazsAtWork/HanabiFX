@@ -2,16 +2,15 @@ package de.novatec.cg.sc.hanabi.common.request;
 
 import com.google.gson.annotations.SerializedName;
 
-import de.novatec.cg.sc.hanabi.common.Card;
 import de.novatec.cg.sc.hanabi.common.enums.RequestType;
 
 public class PlayCardRequest implements Request {
 
-    @SerializedName("played_card")
-    private final Card card;
+    @SerializedName("played_card_id")
+    private final int playedCardId;
 
-    public PlayCardRequest(Card card) {
-        this.card = card;
+    public PlayCardRequest(int playedCardId) {
+        this.playedCardId = playedCardId;
     }
 
     @Override
@@ -21,6 +20,6 @@ public class PlayCardRequest implements Request {
 
     @Override
     public String toString() {
-        return "PlaycardRequest [card=" + card + "]";
+        return "PlaycardRequest [playedCardId=" + playedCardId + "]";
     }
 }

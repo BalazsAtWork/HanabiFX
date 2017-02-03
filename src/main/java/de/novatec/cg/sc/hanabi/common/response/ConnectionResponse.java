@@ -1,15 +1,17 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
+import java.util.List;
+
 public class ConnectionResponse implements Response {
 
-    private String name;
+    private List<String> names;
 
-    public String getName() {
-        return name;
+    public List<String> getNames() {
+        return names;
     }
 
     @Override
     public String toString() {
-        return "ConnectionResponse [name=" + name + "]";
+        return "ConnectionResponse [names=" + names + "]";
     }
 }

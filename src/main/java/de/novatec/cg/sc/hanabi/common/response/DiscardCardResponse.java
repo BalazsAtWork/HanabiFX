@@ -1,15 +1,26 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
+import com.google.gson.annotations.SerializedName;
+
+import de.novatec.cg.sc.hanabi.common.Card;
+
 public class DiscardCardResponse extends GameStateResponse {
 
-    private String name;
+    @SerializedName("discarding_player")
+    private String discardingPlayer;
 
-    public String getName() {
-        return name;
+    @SerializedName("discarded_card")
+    private Card discardedCard;
+
+    @SerializedName("drawn_card")
+    private Card drawnCard;
+
+    public String getDiscardingPlayer() {
+        return discardingPlayer;
     }
 
     @Override
     public String toString() {
-        return "DiscardCardResponse [name=" + name + "]";
+        return "DiscardCardResponse [discardingPlayer=" + discardingPlayer + ", discardedCard=" + discardedCard + ", drawnCard=" + drawnCard + "]";
     }
 }

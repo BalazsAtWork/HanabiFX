@@ -47,7 +47,7 @@ public class RequestSenderService {
     }
 
     public void sendDiscardCardRequest(Card cardToDiscard) {
-        sendRequest(new DiscardCardRequest(cardToDiscard));
+        sendRequest(new DiscardCardRequest(cardToDiscard.getId()));
     }
 
     public void sendHintColorRequest(String targetPlayer, Color color) {
@@ -59,7 +59,7 @@ public class RequestSenderService {
     }
 
     public void sendPlayCardRequest(Card card) {
-        sendRequest(new PlayCardRequest(card));
+        sendRequest(new PlayCardRequest(card.getId()));
     }
 
     private void sendRequest(Request request) {

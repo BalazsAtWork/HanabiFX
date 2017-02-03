@@ -55,11 +55,8 @@ public class ResponseMessageHandler {
 
     private void renderGameState(GameStateResponse gameStateResponse) {
         Platform.runLater(() -> {
-            String nextPlayerName = gameStateResponse.getNextPlayerName();
             GameState gameState = gameStateResponse.getGameState();
-            if (gameState == null) {
-                gameState = new GameState();
-            }
+            String nextPlayerName = gameState.getNextPlayer();
             gameStateRenderer.renderGameState(gameState, nextPlayerName);
         });
     }

@@ -11,11 +11,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import de.novatec.cg.sc.hanabi.common.Card;
-import de.novatec.cg.sc.hanabi.common.CardBuilder;
 import de.novatec.cg.sc.hanabi.common.CardInHand;
 import de.novatec.cg.sc.hanabi.common.CardKnowledge;
-import de.novatec.cg.sc.hanabi.common.CardKnowledgeBuilder;
-import de.novatec.cg.sc.hanabi.common.Deck;
 import de.novatec.cg.sc.hanabi.common.GameState;
 import de.novatec.cg.sc.hanabi.common.Player;
 import de.novatec.cg.sc.hanabi.common.enums.Number;
@@ -111,7 +108,7 @@ public class GameStateRenderer {
         playedCardsVbox.getChildren().add(playedCardsTitledPane);
     }
 
-    private void renderGameInfo(int hintTokens, int errorTokens, Deck deck) {
+    private void renderGameInfo(int hintTokens, int errorTokens, List<Card> deck) {
         this.gameInfoVbox.getChildren().clear();
 
         VBox vbox = new VBox();
@@ -119,7 +116,7 @@ public class GameStateRenderer {
         if (deck != null) {
             vbox.getChildren().add(new Label("Hint tokens: " + hintTokens));
             vbox.getChildren().add(new Label("Error tokens: " + errorTokens));
-            vbox.getChildren().add(new Label("Cards in deck: " + deck.getCards().size()));
+            vbox.getChildren().add(new Label("Cards in deck: " + deck.size()));
         }
 
         TitledPane gameInfoTitledPane = createTitledPaneWithHBox("Game info", 10, Arrays.asList(vbox));
@@ -196,18 +193,14 @@ public class GameStateRenderer {
 
     private void renderNegativeColorHints(Player player, HBox negativeHintHbox) {
         for (de.novatec.cg.sc.hanabi.common.enums.Color color : de.novatec.cg.sc.hanabi.common.enums.Color.values()) {
-            EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> {
-                requestSenderService.sendHintColorRequest(player.getName(), color);
-            };
+            EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> requestSenderService.sendHintColorRequest(player.getName(), color);
             negativeHintHbox.getChildren().add(createColoredCanvas(10, 10, color.getFxColor(), true, mouseClickedHandler));
         }
     }
 
     private void renderNegativeNumberHints(Player player, HBox negativeHintHbox) {
         for (Number number : Number.values()) {
-            EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> {
-                requestSenderService.sendHintNumberRequest(player.getName(), number);
-            };
+            EventHandler<? super MouseEvent> mouseClickedHandler = mouseEvent -> requestSenderService.sendHintNumberRequest(player.getName(), number);
             Canvas numberCanvas = createColoredCanvas(10, 10, Color.BLACK, false, mouseClickedHandler);
             GraphicsContext gc = numberCanvas.getGraphicsContext2D();
 
@@ -242,12 +235,8 @@ public class GameStateRenderer {
         if (mouseClickedHandler != null) {
             canvas.setOnMouseClicked(mouseClickedHandler);
 
-            canvas.setOnMouseEntered(mouseEvent -> {
-                mainAnchorPane.getScene().setCursor(Cursor.HAND);
-            });
-            canvas.setOnMouseExited(mouseEvent -> {
-                mainAnchorPane.getScene().setCursor(Cursor.DEFAULT);
-            });
+            canvas.setOnMouseEntered(mouseEvent -> mainAnchorPane.getScene().setCursor(Cursor.HAND));
+            canvas.setOnMouseExited(mouseEvent -> mainAnchorPane.getScene().setCursor(Cursor.DEFAULT));
         }
         return canvas;
     }
