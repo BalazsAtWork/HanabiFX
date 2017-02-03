@@ -337,48 +337,4 @@ public class GameStateRenderer {
         titledPane.setContent(content);
         return titledPane;
     }
-
-    private List<Player> createDummyPlayers(String... otherPlayerNames) {
-        List<Player> players = new ArrayList<>();
-
-        Player currentPlayer = new Player(currentPlayerName, new ArrayList<>());
-
-        Card c1 = CardBuilder.newCard().withColorBLUE().withNumberTWO().build();
-        Card c2 = CardBuilder.newCard().withColorGREEN().withNumberONE().build();
-        Card c3 = CardBuilder.newCard().withColorRED().withNumberFOUR().build();
-        Card c4 = CardBuilder.newCard().withColorWHITE().withNumberFIVE().build();
-        Card c5 = CardBuilder.newCard().withColorYELLOW().withNumberTHREE().build();
-
-        CardKnowledge ck1 = CardKnowledgeBuilder.newCardKnowledge().playerKnowsColor().playerKnowsNumber().build();
-        CardKnowledge ck2 = CardKnowledgeBuilder.newCardKnowledge().build();
-        CardKnowledge ck3 = CardKnowledgeBuilder.newCardKnowledge().playerKnowsNumber().playerKnowsNotColor(de.novatec.cg.sc.hanabi.common.enums.Color.BLUE)
-                .build();
-        CardKnowledge ck4 = CardKnowledgeBuilder.newCardKnowledge().playerKnowsNumber().playerKnowsNotNumber(Number.TWO).playerKnowsNotNumber(Number.FIVE)
-                .build();
-        CardKnowledge ck5 = CardKnowledgeBuilder.newCardKnowledge().playerKnowsNumber().build();
-
-        CardInHand cih1 = new CardInHand(c1, ck1);
-        CardInHand cih2 = new CardInHand(c2, ck2);
-        CardInHand cih3 = new CardInHand(c3, ck3);
-        CardInHand cih4 = new CardInHand(c4, ck4);
-        CardInHand cih5 = new CardInHand(c5, ck5);
-
-        currentPlayer.getCards().add(cih1);
-        currentPlayer.getCards().add(cih2);
-        currentPlayer.getCards().add(cih3);
-        currentPlayer.getCards().add(cih4);
-        currentPlayer.getCards().add(cih5);
-        players.add(currentPlayer);
-
-        for (String othername : otherPlayerNames) {
-            Player player = new Player(othername, new ArrayList<>());
-            player.getCards().add(cih1);
-            player.getCards().add(cih2);
-            player.getCards().add(cih3);
-            player.getCards().add(cih4);
-            player.getCards().add(cih5);
-            players.add(player);
-        }
-        return players;
-    }
 }
