@@ -44,8 +44,7 @@ public class HanabiClientEndpoint {
 
     @OnError
     public void processError(Throwable t) {
-        loggingService.logClientMessage("ERROR OCCURED!");
-        t.printStackTrace();
+        loggingService.logClientMessage("ERROR OCCURED: " + t);
     }
 
     @OnClose

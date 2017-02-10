@@ -29,7 +29,7 @@ public class HanabiApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Hanabi");
-        primaryStage.setMinWidth(500);
+        this.primaryStage.setMinWidth(500);
         stageContainer.setStage(primaryStage);
 
         initRootLayout();
@@ -67,15 +67,6 @@ public class HanabiApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(HanabiApp.class.getResource("view/" + fxmlFile));
         return fxmlLoader.load();
-    }
-
-    /**
-     * Returns the main stage.
-     * 
-     * @return
-     */
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     public static void main(String[] args) {

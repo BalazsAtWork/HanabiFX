@@ -3,7 +3,6 @@ package de.novatec.cg.sc.hanabi.common.request;
 import com.google.gson.annotations.SerializedName;
 
 import de.novatec.cg.sc.hanabi.common.enums.Color;
-import de.novatec.cg.sc.hanabi.common.enums.RequestType;
 
 public class HintColorRequest implements Request {
 
@@ -16,11 +15,6 @@ public class HintColorRequest implements Request {
     public HintColorRequest(String targetPlayer, Color color) {
         this.targetPlayer = targetPlayer;
         this.color = color;
-    }
-
-    @Override
-    public RequestType getRequestType() {
-        return RequestType.HINT_COLOR_REQUEST;
     }
 
     @Override

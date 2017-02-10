@@ -16,5 +16,4 @@ public class StageContainer {
     public Stage getStage() {
         return stage;
     }
-
 }

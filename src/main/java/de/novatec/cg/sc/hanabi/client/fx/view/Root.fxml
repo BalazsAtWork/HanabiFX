@@ -5,6 +5,5 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane prefHeight="900.0" prefWidth="950.0" minWidth="0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.112">
 </BorderPane>

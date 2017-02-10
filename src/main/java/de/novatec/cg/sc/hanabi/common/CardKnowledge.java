@@ -1,6 +1,7 @@
 package de.novatec.cg.sc.hanabi.common;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -37,11 +38,11 @@ public class CardKnowledge {
         this.knowsNumber = knowsNumber;
     }
 
-    public HashSet<Color> getKnowsColorNot() {
+    public Set<Color> getKnowsColorNot() {
         return knowsColorNot;
     }
 
-    public HashSet<Number> getKnowsNumberNot() {
+    public Set<Number> getKnowsNumberNot() {
         return knowsNumberNot;
     }
 
@@ -50,5 +51,4 @@ public class CardKnowledge {
         return "CardKnowledge [knowsColor=" + knowsColor + ", knowsNumber=" + knowsNumber + ", knowsColorNot=" + knowsColorNot + ", knowsNumberNot="
                 + knowsNumberNot + "]";
     }
-
 }

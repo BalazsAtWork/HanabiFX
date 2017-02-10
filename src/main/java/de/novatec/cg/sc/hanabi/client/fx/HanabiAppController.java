@@ -22,11 +22,5 @@ public class HanabiAppController {
     @FXML
     private void initialize() {
         gameStateRenderer.setMainAnchorPanel(mainAnchorPane);
-        //        currentUserTf.setOnKeyPressed(e -> {
-        //            if (e.getCode().equals(KeyCode.ENTER)) {
-        //                userConnectHbox.getChildren().clear();
-        //                requestSenderService.sendConnectionRequest(currentUserTf.getText());
-        //            }
-        //        });
     }
 }

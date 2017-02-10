@@ -4,6 +4,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import de.novatec.cg.sc.hanabi.common.configuration.Config;
+import de.novatec.cg.sc.hanabi.common.configuration.ServerConfig;
+
 public class GuiceInjector {
 
     private static final Injector INJECTOR = Guice.createInjector(new ConfigModule());
@@ -22,7 +25,7 @@ public class GuiceInjector {
     private static class ConfigModule extends AbstractModule {
         @Override
         protected void configure() {
-            //CURRENTLY NO SPECIAL CONFIGURATION
+            bind(Config.class).to(ServerConfig.class);
         }
     }
 }

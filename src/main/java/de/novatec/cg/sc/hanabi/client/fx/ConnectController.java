@@ -9,6 +9,7 @@ import de.novatec.cg.sc.hanabi.common.service.RequestSenderService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 public class ConnectController {
 
@@ -40,9 +41,11 @@ public class ConnectController {
     @FXML
     private void initialize() {
         startGameBtn.setVisible(false);
-        //        connectBtn.setGraphic(new ImageView("/image.png"));
-        //        ToolBar toolBar = new ToolBar();
-        //        toolBar.getItems().add(new Button())
+        playerTf.setOnKeyPressed(e -> {
+            if (e.getCode().equals(KeyCode.ENTER)) {
+                fireConnectToServer();
+            }
+        });
     }
 
     @FXML

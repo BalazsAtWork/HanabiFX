@@ -12,20 +12,16 @@ import javax.websocket.WebSocketContainer;
 import com.google.inject.Inject;
 
 import de.novatec.cg.sc.hanabi.GuiceInjector;
-import de.novatec.cg.sc.hanabi.common.configuration.ServerConfig;
+import de.novatec.cg.sc.hanabi.common.configuration.Config;
 import de.novatec.cg.sc.hanabi.common.service.LoggingService;
 
 public class Client {
-
-    public static final void connectToServer() {
-        new Client().connectAsClientToServer();
-    }
 
     @Inject
     private LoggingService loggingService;
 
     @Inject
-    private ServerConfig serverConfig;
+    private Config serverConfig;
 
     private Client() {
         GuiceInjector.injectMembersInto(this);
@@ -39,5 +35,9 @@ public class Client {
         } catch (DeploymentException | IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static final void connectToServer() {
+        new Client().connectAsClientToServer();
     }
 }

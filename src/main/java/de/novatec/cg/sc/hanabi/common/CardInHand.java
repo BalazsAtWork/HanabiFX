@@ -27,5 +27,4 @@ public class CardInHand {
     public String toString() {
         return "CardInHand [card=" + card + ", cardKnowledge=" + cardKnowledge + "]";
     }
-
 }

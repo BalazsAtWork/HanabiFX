@@ -2,6 +2,7 @@ package de.novatec.cg.sc.hanabi.common;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -34,7 +35,6 @@ public class GameState {
     @SerializedName("next_player")
     private String nextPlayer;
 
-    //OPTIONAL?!?!?
     @SerializedName("turns_left")
     private Integer turnsLeft;
 
@@ -54,7 +54,7 @@ public class GameState {
         return players;
     }
 
-    public HashMap<Color, Number> getPlayedCards() {
+    public Map<Color, Number> getPlayedCards() {
         return playedCards;
     }
 
@@ -71,5 +71,4 @@ public class GameState {
         return "GameState [hintTokens=" + hintTokens + ", hintTokensMax=" + hintTokensMax + ", errorTokens=" + errorTokens + ", players=" + players
                 + ", playedCards=" + playedCards + "]";
     }
-
 }

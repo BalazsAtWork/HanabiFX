@@ -3,7 +3,6 @@ package de.novatec.cg.sc.hanabi.common.request;
 import com.google.gson.annotations.SerializedName;
 
 import de.novatec.cg.sc.hanabi.common.enums.Number;
-import de.novatec.cg.sc.hanabi.common.enums.RequestType;
 
 public class HintNumberRequest implements Request {
 
@@ -16,11 +15,6 @@ public class HintNumberRequest implements Request {
     public HintNumberRequest(String targetPlayer, Number number) {
         this.targetPlayer = targetPlayer;
         this.number = number;
-    }
-
-    @Override
-    public RequestType getRequestType() {
-        return RequestType.HINT_NUMBER_REQUEST;
     }
 
     @Override

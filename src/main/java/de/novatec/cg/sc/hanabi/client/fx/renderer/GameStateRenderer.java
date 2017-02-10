@@ -3,8 +3,8 @@ package de.novatec.cg.sc.hanabi.client.fx.renderer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.google.inject.Inject;
@@ -70,7 +70,6 @@ public class GameStateRenderer {
         mainVbox.setLayoutX(20);
         mainVbox.setLayoutY(20);
 
-        //        playersFlowPane.setPrefWrapLength(800);
         playersFlowPane.prefWidthProperty().bind(Bindings.add(-50, stageContainer.getStage().widthProperty()));
 
         HBox b = new HBox(10);
@@ -97,7 +96,7 @@ public class GameStateRenderer {
         }
     }
 
-    private void renderPlayedCards(HashMap<de.novatec.cg.sc.hanabi.common.enums.Color, Number> playedCards) {
+    private void renderPlayedCards(Map<de.novatec.cg.sc.hanabi.common.enums.Color, Number> playedCards) {
         this.playedCardsVbox.getChildren().clear();
 
         int currentPoints = 0;
