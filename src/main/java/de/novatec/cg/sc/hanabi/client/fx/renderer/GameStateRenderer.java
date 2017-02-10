@@ -88,6 +88,8 @@ public class GameStateRenderer {
     private void renderPlayedCards(HashMap<de.novatec.cg.sc.hanabi.common.enums.Color, Number> playedCards) {
         this.playedCardsVbox.getChildren().clear();
 
+        int currentPoints = 0;
+
         List<Node> children = new ArrayList<>();
         for (de.novatec.cg.sc.hanabi.common.enums.Color color : de.novatec.cg.sc.hanabi.common.enums.Color.values()) {
             Canvas cardCanvas = createColoredCanvas(CARD_HEIGHT, CARD_WIDTH, color.getFxColor(), true, null);
@@ -99,12 +101,14 @@ public class GameStateRenderer {
                     gc.setFont(new Font(30.0));
                     gc.setFill(color.getFxNumberColor());
                     gc.fillText(number.displayValue(), 7, 35);
+
+                    currentPoints += number.value();
                 }
             }
             children.add(cardCanvas);
         }
 
-        TitledPane playedCardsTitledPane = createTitledPaneWithHBox("Played cards", CARD_GAP, children);
+        TitledPane playedCardsTitledPane = createTitledPaneWithHBox("Played cards - Points: " + currentPoints, CARD_GAP, children);
         playedCardsVbox.getChildren().add(playedCardsTitledPane);
     }
 
@@ -157,6 +161,10 @@ public class GameStateRenderer {
             playersVbox.getChildren().add(playerPane);
 
             renderPlayerCards(amITheNextOne, player, anotherPlayerToRender, cardHbox, player.getCards());
+
+            if (anotherPlayerToRender) {
+                renderPlayerCards(false, player, false, knowledgeOfAnotherPlayerHbox, player.getCards());
+            }
 
             if (amITheNextOne && anotherPlayerToRender) {
                 renderNegativeColorHints(player, negativeHintHbox);

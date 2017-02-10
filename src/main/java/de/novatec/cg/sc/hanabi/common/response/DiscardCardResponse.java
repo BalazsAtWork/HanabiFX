@@ -19,6 +19,13 @@ public class DiscardCardResponse extends GameStateResponse {
         return discardingPlayer;
     }
 
+    public Card getDiscardedCard() {
+        return discardedCard;
+    }
+
+    public Card getDrawnCard() {
+        return drawnCard;
+    }
     @Override
     public String toString() {
         return "DiscardCardResponse [discardingPlayer=" + discardingPlayer + ", discardedCard=" + discardedCard + ", drawnCard=" + drawnCard + "]";

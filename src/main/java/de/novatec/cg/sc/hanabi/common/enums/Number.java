@@ -12,4 +12,8 @@ public enum Number {
     public String displayValue() {
         return displayValue;
     }
+
+    public int value() {
+        return Integer.valueOf(displayValue);
+    }
 }

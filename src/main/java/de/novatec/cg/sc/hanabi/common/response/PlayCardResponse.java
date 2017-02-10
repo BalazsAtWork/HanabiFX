@@ -1,12 +1,21 @@
 package de.novatec.cg.sc.hanabi.common.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import de.novatec.cg.sc.hanabi.common.Card;
 
 public class PlayCardResponse extends GameStateResponse {
 
+    @SerializedName("playing_player")
     private String playingPlayer;
+
+    @SerializedName("played_card")
     private Card playedCard;
+
+    @SerializedName("drawn_card")
     private Card drawnCard;
+
+    @SerializedName("success")
     private boolean success;
 
     public String getPlayingPlayer() {

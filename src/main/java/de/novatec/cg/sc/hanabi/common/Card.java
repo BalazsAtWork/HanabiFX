@@ -16,9 +16,6 @@ public class Card {
     @SerializedName("number")
     private Number number;
 
-    public Card() {
-    }
-
     public Card(Color color, Number number) {
         this.color = color;
         this.number = number;
