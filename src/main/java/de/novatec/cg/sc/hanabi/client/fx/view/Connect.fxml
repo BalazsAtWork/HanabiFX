@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane prefHeight="30.0" prefWidth="250.0"
+	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.112"
+	fx:controller="de.novatec.cg.sc.hanabi.client.fx.ConnectController">
+	<HBox spacing="10">
+		<Label text="Host: " />
+		<TextField fx:id="hostTf" prefWidth="110" prefHeight="20" text="localhost" />
+		<Label text="Port: " />
+		<TextField fx:id="portTf" prefWidth="50" prefHeight="20" text="4444" />
+		<Label text="Player: " />
+		<TextField fx:id="playerTf" prefWidth="150" prefHeight="20" text="" promptText="ENTER YOUR NAME" />
+		<Button fx:id="connectBtn" text="Connect" onAction="#fireConnectToServer" />
+		<Button fx:id="startGameBtn" text="Start the Game!" onAction="#fireStartGame"/>
+	</HBox>
+</AnchorPane>

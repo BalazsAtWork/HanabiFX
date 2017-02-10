@@ -28,9 +28,7 @@ public class HanabiApp extends Application {
      */
     public void initRootLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HanabiApp.class.getResource("view/Root.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = (BorderPane) loadResourceByFxml("Root.fxml");
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -44,13 +42,17 @@ public class HanabiApp extends Application {
 
     public void showHanabiClient() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HanabiApp.class.getResource("view/Hanabi.fxml"));
-            AnchorPane debugClient = (AnchorPane) loader.load();
-            rootLayout.setCenter(debugClient);
+            rootLayout.setTop((AnchorPane) loadResourceByFxml("Connect.fxml"));
+            rootLayout.setLeft((AnchorPane) loadResourceByFxml("Hanabi.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Object loadResourceByFxml(String fxmlFile) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(HanabiApp.class.getResource("view/" + fxmlFile));
+        return fxmlLoader.load();
     }
 
     /**

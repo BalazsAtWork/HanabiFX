@@ -10,10 +10,9 @@ import javax.websocket.DeploymentException;
 import javax.websocket.WebSocketContainer;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 import de.novatec.cg.sc.hanabi.GuiceInjector;
-import de.novatec.cg.sc.hanabi.common.configuration.Config;
+import de.novatec.cg.sc.hanabi.common.configuration.ServerConfig;
 import de.novatec.cg.sc.hanabi.common.service.LoggingService;
 
 public class Client {
@@ -26,8 +25,7 @@ public class Client {
     private LoggingService loggingService;
 
     @Inject
-    @Named("local")
-    private Config config;
+    private ServerConfig serverConfig;
 
     private Client() {
         GuiceInjector.injectMembersInto(this);
@@ -35,9 +33,9 @@ public class Client {
 
     private final void connectAsClientToServer() {
         try {
-            loggingService.logClientMessage("Connecting to " + config.getServerURI());
+            loggingService.logClientMessage("Connecting to " + serverConfig.getServerURI());
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            container.connectToServer(HanabiClientEndpoint.class, URI.create(config.getServerURI()));
+            container.connectToServer(HanabiClientEndpoint.class, URI.create(serverConfig.getServerURI()));
         } catch (DeploymentException | IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
