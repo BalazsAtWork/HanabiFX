@@ -10,6 +10,7 @@ import java.util.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import de.novatec.cg.sc.hanabi.client.fx.StageContainer;
 import de.novatec.cg.sc.hanabi.common.Card;
 import de.novatec.cg.sc.hanabi.common.CardInHand;
 import de.novatec.cg.sc.hanabi.common.CardKnowledge;
@@ -17,6 +18,7 @@ import de.novatec.cg.sc.hanabi.common.GameState;
 import de.novatec.cg.sc.hanabi.common.Player;
 import de.novatec.cg.sc.hanabi.common.enums.Number;
 import de.novatec.cg.sc.hanabi.common.service.RequestSenderService;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -32,6 +34,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -48,13 +51,16 @@ public class GameStateRenderer {
     @Inject
     private RequestSenderService requestSenderService;
 
+    @Inject
+    private StageContainer stageContainer;
+
     private String currentPlayerName;
 
     private AnchorPane mainAnchorPane;
     private VBox mainVbox = new VBox(10.0);
     private VBox playedCardsVbox = new VBox(10.0);
     private VBox gameInfoVbox = new VBox(10.0);
-    private VBox playersVbox = new VBox(10.0);
+    private FlowPane playersFlowPane = new FlowPane(10, 10);
 
     private TextField notColor = new TextField();
     private TextField notNumber = new TextField();
@@ -64,9 +70,15 @@ public class GameStateRenderer {
         mainVbox.setLayoutX(20);
         mainVbox.setLayoutY(20);
 
-        mainVbox.getChildren().add(playedCardsVbox);
-        mainVbox.getChildren().add(gameInfoVbox);
-        mainVbox.getChildren().add(playersVbox);
+        //        playersFlowPane.setPrefWrapLength(800);
+        playersFlowPane.prefWidthProperty().bind(Bindings.add(-50, stageContainer.getStage().widthProperty()));
+
+        HBox b = new HBox(10);
+        b.getChildren().add(playedCardsVbox);
+        b.getChildren().add(gameInfoVbox);
+
+        mainVbox.getChildren().add(b);
+        mainVbox.getChildren().add(playersFlowPane);
 
         mainAnchorPane.getChildren().add(mainVbox);
     }
@@ -128,7 +140,7 @@ public class GameStateRenderer {
     }
 
     private void renderPlayerWithCards(String nextPlayerName, List<Player> players) {
-        this.playersVbox.getChildren().clear();
+        this.playersFlowPane.getChildren().clear();
 
         if (nextPlayerName == null) {
             return;
@@ -143,11 +155,13 @@ public class GameStateRenderer {
             boolean playerIsTheNextOne = player.getName().equals(nextPlayerName);
 
             HBox cardHbox = new HBox(CARD_GAP);
+            HBox knowledgeOfAnotherPlayerHbox = new HBox(CARD_GAP);
             HBox negativeHintHbox = new HBox(CARD_GAP);
 
             List<Node> children = new ArrayList<>();
             children.add(cardHbox);
             children.add(negativeHintHbox);
+            children.add(knowledgeOfAnotherPlayerHbox);
 
             if (!anotherPlayerToRender) {
                 children.add(notColor);
@@ -158,7 +172,7 @@ public class GameStateRenderer {
             if (playerIsTheNextOne) {
                 playerPane.setStyle(STYLE_FOR_CURRENT_PLAYER);
             }
-            playersVbox.getChildren().add(playerPane);
+            playersFlowPane.getChildren().add(playerPane);
 
             renderPlayerCards(amITheNextOne, player, anotherPlayerToRender, cardHbox, player.getCards());
 

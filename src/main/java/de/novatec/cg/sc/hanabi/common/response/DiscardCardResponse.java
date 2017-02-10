@@ -3,6 +3,7 @@ package de.novatec.cg.sc.hanabi.common.response;
 import com.google.gson.annotations.SerializedName;
 
 import de.novatec.cg.sc.hanabi.common.Card;
+import de.novatec.cg.sc.hanabi.common.payload.handler.response.ResponseHandler;
 
 public class DiscardCardResponse extends GameStateResponse {
 
@@ -26,6 +27,12 @@ public class DiscardCardResponse extends GameStateResponse {
     public Card getDrawnCard() {
         return drawnCard;
     }
+
+    @Override
+    public void handleWith(ResponseHandler responseHandler) {
+        responseHandler.handle(this);
+    }
+
     @Override
     public String toString() {
         return "DiscardCardResponse [discardingPlayer=" + discardingPlayer + ", discardedCard=" + discardedCard + ", drawnCard=" + drawnCard + "]";

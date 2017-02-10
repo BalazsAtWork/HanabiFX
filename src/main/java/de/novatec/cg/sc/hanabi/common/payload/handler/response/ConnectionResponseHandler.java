@@ -9,7 +9,6 @@ import com.google.inject.Singleton;
 import de.novatec.cg.sc.hanabi.client.fx.renderer.GameStateRenderer;
 import de.novatec.cg.sc.hanabi.common.response.ConnectionResponse;
 import de.novatec.cg.sc.hanabi.common.service.LoggingService;
-import de.novatec.cg.sc.hanabi.common.service.RequestSenderService;
 
 @Singleton
 public class ConnectionResponseHandler {
@@ -20,9 +19,6 @@ public class ConnectionResponseHandler {
     @Inject
     private GameStateRenderer gameStateRenderer;
 
-    @Inject
-    private RequestSenderService requestSenderService;
-
     private List<String> connectedPlayerNames = new ArrayList<>();
 
     public void handle(ConnectionResponse connectionResponse) {
@@ -31,9 +27,5 @@ public class ConnectionResponseHandler {
         String currentPlayerName = connectionResponse.getNames().get(connectionResponse.getNames().size() - 1);
         gameStateRenderer.setCurrentPlayerName(currentPlayerName);
         connectedPlayerNames.add(currentPlayerName);
-
-        if (connectedPlayerNames.size() == 2) {
-            requestSenderService.sendGameStartRequest();
-        }
     }
 }
